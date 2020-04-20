@@ -55,7 +55,6 @@ export const RepositoryInfo = styled.section`
     list-style: none;
     margin-top: 40px;
 
-
     li {
       & + li {
         margin-left: 80px;
@@ -83,7 +82,7 @@ export const Issues = styled.div`
     width: 100%;
     padding: 24px;
     border-radius: 5px;
-    background: #FFF;
+    background: #fff;
     text-decoration: none;
     transition: transform 0.2s;
 
@@ -104,7 +103,7 @@ export const Issues = styled.div`
 
       strong {
         font-size: 20px;
-        color: #3D3D4D;
+        color: #3d3d4d;
       }
 
       p {

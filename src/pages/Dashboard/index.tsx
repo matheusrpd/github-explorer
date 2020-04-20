@@ -20,7 +20,9 @@ const Dashboard: React.FC = () => {
   const [newRepo, setNewRepo] = useState('');
   const [inputError, setInputError] = useState('');
   const [repositories, setRepositories] = useState<Repository[]>(() => {
-    const sotragedRepositories = localStorage.getItem('@GithubExplorer:repositories');
+    const sotragedRepositories = localStorage.getItem(
+      '@GithubExplorer:repositories',
+    );
 
     if (sotragedRepositories) {
       return JSON.parse(sotragedRepositories);
@@ -30,10 +32,15 @@ const Dashboard: React.FC = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem('@GithubExplorer:repositories', JSON.stringify(repositories));
+    localStorage.setItem(
+      '@GithubExplorer:repositories',
+      JSON.stringify(repositories),
+    );
   }, [repositories]);
 
-  async function handleAddRepository(event: FormEvent<HTMLFormElement>): Promise<void> {
+  async function handleAddRepository(
+    event: FormEvent<HTMLFormElement>,
+  ): Promise<void> {
     event.preventDefault();
 
     try {
@@ -47,7 +54,6 @@ const Dashboard: React.FC = () => {
       setRepositories([...repositories, response.data]);
       setNewRepo('');
       setInputError('');
-
     } catch (error) {
       setInputError('Erro na busca por esse repositório.');
     }
@@ -55,24 +61,30 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <img src={logo} alt="Github Explorer"/>
+      <img src={logo} alt="Github Explorer" />
       <Title>Explore repositórios no GitHub</Title>
 
       <Form hasError={!!inputError} onSubmit={handleAddRepository}>
         <input
           value={newRepo}
-          onChange={e => setNewRepo(e.target.value)}
+          onChange={(e) => setNewRepo(e.target.value)}
           placeholder="Digite o nome do repositório"
         />
         <button type="submit">Pesquisar</button>
       </Form>
 
-      { inputError && <Error>{inputError}</Error>}
+      {inputError && <Error>{inputError}</Error>}
 
       <Repositories>
-        {repositories.map(repository => (
-          <Link key={repository.full_name} to={`/repositories/${repository.full_name}`}>
-            <img src={repository.owner.avatar_url} alt={repository.owner.login} />
+        {repositories.map((repository) => (
+          <Link
+            key={repository.full_name}
+            to={`/repositories/${repository.full_name}`}
+          >
+            <img
+              src={repository.owner.avatar_url}
+              alt={repository.owner.login}
+            />
             <div>
               <strong>{repository.full_name}</strong>
               <p>{repository.description}</p>
@@ -82,7 +94,7 @@ const Dashboard: React.FC = () => {
         ))}
       </Repositories>
     </>
-  )
-}
+  );
+};
 
 export default Dashboard;

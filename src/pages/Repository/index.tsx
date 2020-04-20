@@ -29,7 +29,7 @@ interface Issue {
   html_url: string;
   user: {
     login: string;
-  }
+  };
 }
 
 const Repository: React.FC = () => {
@@ -39,13 +39,13 @@ const Repository: React.FC = () => {
 
   useEffect(() => {
     async function loadData(): Promise<void> {
-      const [repo, issues] = await Promise.all([
+      const [resRepo, resIssues] = await Promise.all([
         api.get(`repos/${params.repository}`),
-        await api.get(`repos/${params.repository}/issues`)
+        await api.get(`repos/${params.repository}/issues`),
       ]);
 
-      setRepository(repo.data);
-      setIssues(issues.data);
+      setRepository(resRepo.data);
+      setIssues(resIssues.data);
     }
 
     loadData();
@@ -54,17 +54,20 @@ const Repository: React.FC = () => {
   return (
     <>
       <Header>
-        <img src={logo} alt="Github Explorer"/>
+        <img src={logo} alt="Github Explorer" />
         <Link to="/">
           <FiChevronLeft size={16} />
           Voltar
         </Link>
       </Header>
 
-      { repository && (
+      {repository && (
         <RepositoryInfo>
           <header>
-            <img src={repository?.owner.avatar_url} alt={repository.full_name}/>
+            <img
+              src={repository?.owner.avatar_url}
+              alt={repository.full_name}
+            />
             <div>
               <strong>{repository.full_name}</strong>
               <p>{repository.description}</p>
@@ -88,7 +91,7 @@ const Repository: React.FC = () => {
       )}
 
       <Issues>
-        { issues.map(issue => (
+        {issues.map((issue) => (
           <a key={String(issue.id)} href={issue.html_url} target="_blank">
             <div>
               <strong>{issue.title}</strong>
@@ -100,6 +103,6 @@ const Repository: React.FC = () => {
       </Issues>
     </>
   );
-}
+};
 
 export default Repository;
