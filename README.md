@@ -1,6 +1,6 @@
-<h3 align="center">
+<h1 align="center">
   Github Explorer
-</h3>
+</h1>
 
 <p align="center">Código desenvolvido durante o <a href="https://rocketseat.com.br/gostack">Bootcamp GoStack 🎓</a>.</p>
 
